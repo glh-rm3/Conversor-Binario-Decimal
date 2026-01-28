@@ -62,6 +62,7 @@ void _start(int argc, char **argv) {
    try {
       if(argv[1] == NULL || argv[2] == NULL) {
           cout << "Informe os dois argumentos!" << endl;
+          _help();
           return;
       }
 
