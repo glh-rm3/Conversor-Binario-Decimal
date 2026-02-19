@@ -1,5 +1,6 @@
 #include "project.h"
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -27,35 +28,30 @@ void dec2bin(int num) {
     for(int j = i - 1; j >= 0; j--) {
          cout << bin_arr[j];
     }
-
-    cout << endl;
 }
 
-int bin2dec(int num) {
+unsigned long long int bin2dec(string number) {
     
-    string valida_binario = to_string(num);
-    const char *buf_bin = valida_binario.c_str();
-    
-    for(size_t i = 0; i < valida_binario.size(); i++) {
+    const char *buf_bin = number.c_str();    
+    for(size_t i = 0; i < number.size(); i++) {
         if (buf_bin[i] != '0' && buf_bin[i] != '1') {
             cout << "Utilize valores binarios: " << endl;
             return 0;
         }
     }
 
-    int ultimo_digito = {0}, num_dec = {0}, base = {1};
-    
-    if(num == 0){
-        return 0;
-    }
-    
-    while(num) {
-       ultimo_digito = num % 10;
-       num = num / 10;
-       num_dec = num_dec + ultimo_digito * base;
-       base = base * 2;
-    }
-    return num_dec;
+    int indice = 0;
+    unsigned long long int somador = 0;
+    for(size_t i = number.size() - 1; buf_bin[i] != '\0' > 0; i--) { //Necessário inverter buf_bin, 
+                                                                     //pois o bit mais significativo(MSB) fica à esquerda.                                                               
+        int j = buf_bin[i] - '0'; //convesao char para int.
+
+        //aplicando a regra do polinomio
+        if(j == 0) somador = somador + 0;
+        if(j == 1) somador += pow(2, indice);
+    indice++;
+  }
+  return somador;
 }
 
 void _start(int argc, char **argv) { 
@@ -67,11 +63,12 @@ void _start(int argc, char **argv) {
       }
 
       string param = argv[1];
-      int number = std::stoi(argv[2]);
-
+      string number = argv[2];
+    
       if(argc > 2) {
          if(param == "--dec2bin" || param == "-b") {
-             dec2bin(number);
+              int num = stoi(number);
+              dec2bin(num);
          } else if(param == "--bin2dec" || param == "-d") {
              cout << bin2dec(number) << endl;
          } 
