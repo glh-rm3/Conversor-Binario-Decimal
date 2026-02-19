@@ -42,7 +42,7 @@ unsigned long long int bin2dec(string number) {
 
     int indice = 0;
     unsigned long long int somador = 0;
-    for(size_t i = number.size() - 1; buf_bin[i] != '\0' > 0; i--) { //Necessário inverter buf_bin, 
+    for(size_t i = number.size() - 1; buf_bin[i] != '\0'; i--) { //Necessário inverter buf_bin, 
                                                                      //pois o bit mais significativo(MSB) fica à esquerda.                                                               
         int j = buf_bin[i] - '0'; //convesao char para int.
 
